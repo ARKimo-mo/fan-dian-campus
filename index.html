@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f36a35">
+  <meta name="description" content="饭点儿，属于校园的食堂点评与推荐。按预算、口味和食堂发现好菜，一键决定今天吃什么。">
+  <title>饭点儿 · 把每一顿，吃开心</title>
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/icons/style.css">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳转到主要内容</a>
+  <header class="header">
+    <div class="header-inner">
+      <a class="brand" href="#discover" aria-label="饭点儿首页"><span class="brand-icon"><i class="ph ph-bowl-food" aria-hidden="true"></i></span><span>饭点儿<b>FAN DIAN</b></span></a>
+      <button class="campus-button" id="campus-button"><i class="ph ph-map-pin" aria-hidden="true"></i><span>青禾大学<small>示例校园</small></span><i class="ph ph-caret-down" aria-hidden="true"></i></button>
+      <nav class="desktop-nav" aria-label="主导航"><a href="#discover" data-nav="discover">发现好味</a><a href="#canteens" data-nav="canteens">食堂指南</a><a href="#favorites" data-nav="favorites">我的收藏<span id="favorite-count"></span></a></nav>
+      <button class="button primary header-review" id="write-review"><i class="ph ph-pencil-simple" aria-hidden="true"></i>写点评</button>
+    </div>
+  </header>
+  <main id="main">
+    <section id="discover-view" class="view">
+      <section class="hero container" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="hero-eyebrow"><span class="mini-line"></span> 好好吃饭，是校园里的头等大事</div>
+          <h1 id="hero-title">今天吃什么？<br>听听<span>同学怎么说。</span></h1>
+          <p>发现食堂宝藏菜，少踩雷，多干饭。<br>让每一次纠结，都变成一顿好饭。</p>
+          <div class="hero-actions"><button class="button primary large" id="decide-button"><i class="ph ph-shuffle" aria-hidden="true"></i>帮我选一餐<i class="ph ph-arrow-up-right" aria-hidden="true"></i></button><button class="text-button" id="explore-button">自己逛逛<i class="ph ph-arrow-down" aria-hidden="true"></i></button></div>
+          <div class="hero-proof"><div class="avatar-stack" aria-hidden="true"><span>林</span><span>周</span><span>陈</span><span>许</span></div><span>每一道好评，都有同学的理由</span></div>
+        </div>
+        <div class="hero-art">
+          <span class="hero-scribble" aria-hidden="true">GOOD FOOD,<br>GOOD MOOD.</span>
+          <div class="plate-halo"><div class="plate"><img src="./assets/kungpao.jpg" alt="宫保鸡丁搭配米饭和新鲜蔬菜" fetchpriority="high" id="hero-image"></div></div>
+          <div class="hero-note"><i class="ph ph-seal-check" aria-hidden="true"></i><div><b>宝藏窗口，藏不住了</b><span>你的下一顿，值得被认真推荐</span></div></div>
+          <span class="art-plus" aria-hidden="true">✳</span>
+        </div>
+      </section>
+      <section class="discovery container" id="discovery" aria-label="发现菜品">
+        <div class="search-row"><label class="search-box"><i class="ph ph-magnifying-glass" aria-hidden="true"></i><input id="search" type="search" placeholder="搜一道菜、一个窗口，或你想吃的口味" aria-label="搜索菜品或窗口"><kbd aria-hidden="true">/</kbd></label><button class="button outline" id="filter-toggle" aria-expanded="false" aria-controls="more-filters"><i class="ph ph-sliders-horizontal" aria-hidden="true"></i>偏好筛选<span id="filter-count"></span></button></div>
+        <div id="more-filters" class="more-filters" hidden>
+          <label>每餐预算<select id="budget"><option value="100">不限预算</option><option value="10">10 元及以下</option><option value="15">15 元及以下</option><option value="20">20 元及以下</option></select></label>
+          <label>辣度偏好<select id="spicy"><option value="all">都可以</option><option value="0">不吃辣</option><option value="1">最多微辣</option><option value="2">无辣不欢</option></select></label>
+          <label>避开食材<select id="exclude"><option value="">无忌口</option><option value="花生">花生</option><option value="鸡蛋">鸡蛋</option><option value="虾">虾</option><option value="牛肉">牛肉</option></select></label>
+          <button class="text-button" id="reset-filters">重置筛选<i class="ph ph-arrow-counter-clockwise" aria-hidden="true"></i></button>
+          <p class="filter-note">食材信息为示例；如有过敏，请到窗口确认配料和交叉接触情况。</p>
+        </div>
+        <div class="canteen-filter" aria-label="按食堂筛选"><span class="filter-label">食堂</span><div id="canteen-chips" class="chip-group"></div></div>
+        <div class="content-layout">
+          <div class="dish-area">
+            <div class="section-bar"><div class="tabs" role="tablist" aria-label="推荐类型"><button class="tab active" role="tab" aria-selected="true" data-tab="recommend">为你推荐</button><button class="tab" role="tab" aria-selected="false" data-tab="new">本周新菜<span class="new-dot" aria-label="有新菜"></span></button><button class="tab" role="tab" aria-selected="false" data-tab="avoid">避雷参考</button></div><label class="sort-label"><i class="ph ph-arrows-down-up" aria-hidden="true"></i><select id="sort" aria-label="菜品排序"><option value="recommended">综合推荐</option><option value="rating">评分优先</option><option value="price">价格最低</option><option value="wait">排队最短</option></select></label></div>
+            <div class="list-summary"><p id="results-description"></p><span>菜品与评价均为示例</span></div>
+            <div id="dish-grid" class="dish-grid" aria-live="polite"></div>
+          </div>
+          <aside class="sidebar">
+            <section class="lunch-card"><div class="lunch-card-icon"><i class="ph ph-fork-knife" aria-hidden="true"></i></div><span class="small-label">选择困难，交给饭点儿</span><h2>你的下一顿，<br>我们有点想法。</h2><p>预算、口味、忌口都考虑到，<br>给纠结一个美味的答案。</p><button class="button dark" id="sidebar-decide">现在就选<i class="ph ph-arrow-right" aria-hidden="true"></i></button><span class="lunch-doodle" aria-hidden="true"><i class="ph ph-bowl-food"></i></span></section>
+            <section class="trending"><div class="aside-title"><h2>同学的干饭笔记</h2><i class="ph ph-chat-circle-dots" aria-hidden="true"></i></div><div id="notes-list"></div><button class="text-button notes-write" id="notes-write">分享你的一口真话<i class="ph ph-arrow-up-right" aria-hidden="true"></i></button></section>
+            <div class="kind-note"><i class="ph ph-heart" aria-hidden="true"></i><p>口味没有标准答案。<br>具体的体验，比一句“难吃”更有帮助。</p></div>
+          </aside>
+        </div>
+      </section>
+    </section>
+    <section id="canteens-view" class="view container subpage" hidden></section>
+    <section id="favorites-view" class="view container subpage" hidden></section>
+  </main>
+  <footer class="footer container"><div class="footer-brand"><i class="ph ph-bowl-food" aria-hidden="true"></i><b>饭点儿</b><span>把每一顿，吃开心。</span></div><p>校园食堂体验原型 · 菜品、价格、排队与评价为示例数据<br>收藏、偏好与新点评仅保存在当前浏览器，不会同步给其他人。</p><button class="text-button" id="about-button">关于饭点儿<i class="ph ph-arrow-up-right" aria-hidden="true"></i></button></footer>
+  <nav class="mobile-nav" aria-label="移动端导航"><a href="#discover" data-nav="discover"><i class="ph ph-compass" aria-hidden="true"></i>发现好味</a><a href="#canteens" data-nav="canteens"><i class="ph ph-storefront" aria-hidden="true"></i>食堂指南</a><button id="mobile-decide" aria-label="帮我选一餐"><i class="ph ph-shuffle" aria-hidden="true"></i></button><a href="#favorites" data-nav="favorites"><i class="ph ph-heart" aria-hidden="true"></i>我的收藏</a><button id="mobile-review"><i class="ph ph-pencil-simple" aria-hidden="true"></i>写点评</button></nav>
+  <dialog id="modal"><div id="modal-content"></div></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

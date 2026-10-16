@@ -1,0 +1,7 @@
+{
+  "name": "fan-dian-campus",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": { "test": "node tests/smoke.cjs", "serve": "node scripts/serve.cjs" },
+  "devDependencies": { "playwright": "^1.56.0", "@phosphor-icons/web": "^2.1.2" }
+}
